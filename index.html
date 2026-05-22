@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research ROI Calculator — GetWhy</title>
+<title>GetWhy Business Value Calculator</title>
 <style>
 @font-face {
   font-family: 'Aeonik';
@@ -301,6 +301,41 @@ nav {
   min-width: 86px;
   text-align: right;
 }
+.input-group {
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--border);
+}
+.input-group:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.ig-title {
+  font-family: 'EdictDisplay', Georgia, serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--black);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 7px;
+}
+.ig-desc {
+  font-family: 'Aeonik', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--subtle);
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+.assume {
+  margin-top: 0.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+  font-family: 'Aeonik', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--subtle);
+  line-height: 1.55;
+}
 
 /* RESULTS */
 .res-big { margin-bottom: 1.75rem; }
@@ -354,6 +389,34 @@ nav {
   font-size: 17px;
   font-weight: 500;
   color: var(--white);
+}
+
+/* METRIC ROW */
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.metric-num {
+  font-family: 'EdictDisplay', Georgia, serif;
+  font-size: 27px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.metric-label {
+  font-family: 'Aeonik', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.3);
+  margin-top: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 /* BARS */
@@ -506,6 +569,44 @@ nav {
 .nucleus-text strong { color: var(--black); font-weight: 500; }
 
 /* SOURCE */
+/* STAKES */
+.stakes {
+  background: var(--burgundy);
+  border-top: 1px solid var(--border-dark);
+}
+.stakes-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 4.5rem 2rem;
+}
+.stakes-eyebrow {
+  font-family: 'Aeonik', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fuchsia);
+  margin-bottom: 1.5rem;
+}
+.stakes-body {
+  font-family: 'EdictDisplay', Georgia, serif;
+  font-size: 27px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  max-width: 820px;
+}
+.stakes-close {
+  font-family: 'EdictDisplay', Georgia, serif;
+  font-size: 27px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--fuchsia);
+  max-width: 820px;
+  margin-top: 1.1rem;
+}
 .source-line {
   font-family: 'Aeonik', sans-serif;
   font-size: 11px;
@@ -544,6 +645,8 @@ footer p {
   .proof-inner { flex-wrap: wrap; }
   .proof-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .main { padding: 2rem 1.25rem 3rem; }
+  .stakes-inner { padding: 3rem 1.25rem; }
+  .stakes-body, .stakes-close { font-size: 21px; }
 }
 </style>
 </head>
@@ -565,9 +668,9 @@ footer p {
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <span class="hero-eyebrow">Research ROI calculator</span>
-      <h1>How much is your<br>agency retainer<br><em>really</em> costing you?</h1>
-      <p class="hero-sub">Most enterprise insights teams spend $500K to $2M a year on agency qual. GetWhy replaces that spend at the same depth. Every number below is independently verified.</p>
+      <span class="hero-eyebrow">Business value calculator</span>
+      <h1>What is your research<br><em>really</em> costing you?</h1>
+      <p class="hero-sub">Most enterprise insights teams spend $500K to $2M a year on agency qual. That is only part of the bill. The benchmarks behind this model are verified by Nucleus Research.</p>
     </div>
     <div class="hero-faces">
       <div class="face-col">
@@ -591,16 +694,16 @@ footer p {
       <div class="proof-label">lower cost<br>per interview</div>
     </div>
     <div class="proof-item">
-      <div class="proof-num">10x</div>
+      <div class="proof-num">5x</div>
       <div class="proof-label">faster time<br>to insight</div>
     </div>
     <div class="proof-item">
-      <div class="proof-num">$2.2M</div>
-      <div class="proof-label">incremental spend<br>avoided — verified</div>
+      <div class="proof-num" id="ps-benefit">$962K</div>
+      <div class="proof-label">total annual<br>benefit</div>
     </div>
     <div class="proof-item">
-      <div class="proof-num">960 hrs</div>
-      <div class="proof-label">analyst time<br>recovered per year</div>
+      <div class="proof-num" id="ps-hrs">4,368 hrs</div>
+      <div class="proof-label">researcher time<br>recovered per year</div>
     </div>
   </div>
 </div>
@@ -612,36 +715,36 @@ footer p {
     <!-- LEFT -->
     <div>
       <div class="card">
-        <p class="section-label">Your current research baseline</p>
+        <p class="section-label">Your research today</p>
 
-        <div class="input-row">
-          <label>Studies commissioned per year</label>
+        <div class="input-group">
+          <p class="ig-title">Traditional Agency Spend</p>
+          <p class="ig-desc">What you pay agencies and panels each year. GetWhy replaces most of it at the same depth.</p>
           <div class="input-flex">
-            <input type="range" id="studies" min="10" max="200" step="5" value="40">
-            <span class="rval" id="studies-out">40</span>
+            <input type="range" id="agency" min="50000" max="2000000" step="25000" value="200000" aria-label="Annual outside research and agency spend">
+            <span class="rval" id="agency-out">$200,000</span>
           </div>
         </div>
-        <div class="input-row">
-          <label>Average agency cost per study</label>
+
+        <div class="input-group">
+          <p class="ig-title">Your Insight Team</p>
+          <p class="ig-desc">GetWhy handles study design, fieldwork, and synthesis. Each researcher gets most of that time back.</p>
           <div class="input-flex">
-            <input type="range" id="cost" min="10000" max="100000" step="2500" value="35000">
-            <span class="rval" id="cost-out">$35,000</span>
+            <input type="range" id="insight" min="1" max="25" step="1" value="3" aria-label="Researchers and insight professionals on your team">
+            <span class="rval" id="insight-out">3</span>
           </div>
         </div>
-        <div class="input-row">
-          <label>Researcher coordination hours per study</label>
+
+        <div class="input-group">
+          <p class="ig-title">Your Decision-Makers</p>
+          <p class="ig-desc">Product, marketing, and innovation leads who wait on insight before they act. Faster answers mean faster decisions.</p>
           <div class="input-flex">
-            <input type="range" id="hrs" min="5" max="40" step="5" value="20">
-            <span class="rval" id="hrs-out">20 hrs</span>
+            <input type="range" id="dm" min="10" max="500" step="10" value="100" aria-label="Product, marketing, and innovation stakeholders who rely on research">
+            <span class="rval" id="dm-out">100</span>
           </div>
         </div>
-        <div class="input-row">
-          <label>Average researcher hourly rate</label>
-          <div class="input-flex">
-            <input type="range" id="rate" min="50" max="200" step="10" value="100">
-            <span class="rval" id="rate-out">$100 / hr</span>
-          </div>
-        </div>
+
+        <p class="assume">Assumes an all-in annual cost of $80,000 per researcher and $120,000 per stakeholder. That covers salary, benefits, and overhead, in line with Nucleus Research benchmarks.</p>
       </div>
 
     </div>
@@ -649,52 +752,67 @@ footer p {
     <!-- RIGHT -->
     <div>
       <div class="card-dark">
-        <p class="section-label">Your savings estimate</p>
+        <p class="section-label">Your three-year business case</p>
 
         <div class="res-big">
-          <p class="res-big-label">Annual cost avoided</p>
-          <p class="res-big-num" id="saved">$1,176,000</p>
-          <p class="res-big-sub">by replacing your agency retainer with GetWhy</p>
+          <p class="res-big-label">Total annual benefit</p>
+          <p class="res-big-num" id="annual-benefit">$962,000</p>
+          <p class="res-big-sub">across reduced agency spend, recovered researcher time, and faster decisions</p>
+        </div>
+
+        <div class="metric-row">
+          <div class="metric">
+            <p class="metric-num" id="roi-out">684%</p>
+            <p class="metric-label">3-year ROI</p>
+          </div>
+          <div class="metric">
+            <p class="metric-num" id="payback-out">2.6 mo</p>
+            <p class="metric-label">Payback</p>
+          </div>
+          <div class="metric">
+            <p class="metric-num" id="net-out">$884K</p>
+            <p class="metric-label">Net annual benefit</p>
+          </div>
         </div>
 
         <div class="mini-grid">
           <div class="mini">
-            <p class="mini-label">Agency spend today</p>
-            <p class="mini-val" id="agency-total">$1,400,000</p>
+            <p class="mini-label">Reduced agency fees</p>
+            <p class="mini-val" id="agency-benefit">$194,000</p>
           </div>
           <div class="mini">
-            <p class="mini-label">Cost with GetWhy</p>
-            <p class="mini-val" id="gw-total">$224,000</p>
+            <p class="mini-label">Insight team productivity</p>
+            <p class="mini-val" id="team-benefit">$168,000</p>
           </div>
           <div class="mini">
-            <p class="mini-label">Hours recovered</p>
-            <p class="mini-val" id="hrs-rec">640 hrs</p>
+            <p class="mini-label">Decision-maker productivity</p>
+            <p class="mini-val" id="dm-benefit">$600,000</p>
           </div>
           <div class="mini">
-            <p class="mini-label">Time value</p>
-            <p class="mini-val" id="time-val">$64,000</p>
+            <p class="mini-label">Researcher hours recovered</p>
+            <p class="mini-val" id="hrs-rec">4,368 hrs</p>
           </div>
         </div>
 
         <div class="bar-section">
           <div class="bar-row">
             <div class="bar-meta">
-              <span>Agency spend</span>
-              <span class="bar-val" id="a-label">$1,400,000</span>
+              <span>3-year benefit</span>
+              <span class="bar-val" id="b3-label">$2,886,000</span>
             </div>
-            <div class="bar-track"><div class="bar-agency" id="a-bar"></div></div>
+            <div class="bar-track"><div class="bar-agency" id="b-bar"></div></div>
           </div>
           <div class="bar-row">
             <div class="bar-meta">
-              <span>GetWhy cost</span>
-              <span class="bar-val" id="g-label">$224,000</span>
+              <span>3-year GetWhy investment</span>
+              <span class="bar-val" id="c3-label">$368,327</span>
             </div>
-            <div class="bar-track"><div class="bar-gw" id="g-bar"></div></div>
+            <div class="bar-track"><div class="bar-gw" id="c-bar"></div></div>
           </div>
         </div>
 
         <div class="tti-strip">
-          Time to insight: <strong>3 days</strong> — down from 15 working days with a traditional agency.
+          Time to insight: <strong>3 days</strong>. Down from 15 working days with a traditional agency.
         </div>
       </div>
 
@@ -710,7 +828,7 @@ footer p {
         <button class="cta-btn" onclick="handleSubmit()">Send me the report</button>
 
         <div class="success-box" id="success-box">
-          <p>Your savings report is on its way. You will also receive a note on how to present the case to your CFO — including the Nucleus Research proof point and the cost frame that resonates most with economic buyers.</p>
+          <p>Your savings report is on its way. You will also receive a note on how to present the case to your CFO. It includes the Nucleus Research proof point and the cost frame that resonates most with economic buyers.</p>
         </div>
 
         <p class="micro">GetWhy will not add you to a generic nurture sequence.<br>You will hear from a human within one business day.</p>
@@ -720,8 +838,17 @@ footer p {
   </div>
 </div>
 
+<!-- STAKES -->
+<div class="stakes">
+  <div class="stakes-inner">
+    <p class="stakes-eyebrow">And the cost of guessing</p>
+    <p class="stakes-body">This model counts what GetWhy saves. It does not count what slow research costs you: the launch that misses, the campaign that misfires, the positioning you commit to on a hunch.</p>
+    <p class="stakes-close">That is where research earns its keep.</p>
+  </div>
+</div>
+
 <div class="source-line">
-  Benchmarks independently verified by Nucleus Research, Document 2600X, February 2026 — "How GetWhy improves marketplace execution at scale." Third-party verified findings: 84% cost-per-interview reduction, 80% time-to-insight acceleration (15 working days to 3), 80% coordination overhead reduction (20 hrs to 4 hrs per study), $2.2M incremental spend avoided, 960 analyst hours recovered annually. Model applies Nucleus Research benchmarks linearly to your inputs. Complex or highly specialised studies may vary.
+  Benchmarks independently verified by Nucleus Research, Document 2600X, February 2026: "How GetWhy improves marketplace execution at scale." Third-party verified findings: 84% cost-per-interview reduction, 80% time-to-insight acceleration (15 working days to 3), and 80% coordination overhead reduction (20 hours to 4 per study). The dollar and hour figures shown are modelled by applying these benchmarks to your inputs. Complex or highly specialised studies may vary.
 </div>
 
 <footer>
@@ -730,34 +857,76 @@ footer p {
 
 <script>
   function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function fmtShort(n) {
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M';
+    if (n >= 1e3) return '$' + Math.round(n / 1e3) + 'K';
+    return '$' + Math.round(n);
+  }
+
+  // ---- Nucleus GetWhy ROI business case (DRAFT V3): fixed assumptions ----
+  const AGENCY_ELIM       = 0.97;   // % of outside agency fees eliminated
+  const TEAM_PRODUCTIVITY = 0.70;   // insight-team productivity uplift
+  const DM_PRODUCTIVITY   = 0.05;   // decision-maker productivity uplift
+  const WORK_HOURS        = 2080;   // annual working hours per FTE
+  const INSIGHT_COST      = 80000;  // all-in annual cost per insight professional (held at default)
+  const STAKEHOLDER_COST  = 120000; // all-in annual cost per research stakeholder (held at default)
+
+  // GetWhy investment (spreadsheet cost side, held at defaults)
+  const PLATFORM_INITIAL  = 100000; // initial platform cost
+  const RETAINER_ANNUAL   = 50000;  // annual retainer
+  const PROFSVC_INITIAL   = 30000;  // initial professional services
+  const PROFSVC_ANNUAL    = 10000;  // recurring professional services
+  const STAFF_LOADED      = 90000;  // loaded annual cost of internal staff
+  const DEPLOY_HOURS      = 100;    // one-time deployment hours
+  const ONGOING_FTE       = 0.2;    // ongoing maintenance FTE
+
+  const INITIAL_COST = PLATFORM_INITIAL + PROFSVC_INITIAL + (DEPLOY_HOURS * STAFF_LOADED / WORK_HOURS); // ≈ $134,327
+  const ANNUAL_COST  = RETAINER_ANNUAL + PROFSVC_ANNUAL + (ONGOING_FTE * STAFF_LOADED);                  // $78,000
 
   function update() {
-    const s = parseInt(document.getElementById('studies').value);
-    const c = parseInt(document.getElementById('cost').value);
-    const h = parseInt(document.getElementById('hrs').value);
-    const r = parseInt(document.getElementById('rate').value);
+    // ---- Inputs (lean drivers; remaining assumptions held at spreadsheet defaults) ----
+    const agencySpend = +document.getElementById('agency').value;   // annual external research / agency spend
+    const insightPros = +document.getElementById('insight').value;  // # researchers / insight professionals
+    const dmCount     = +document.getElementById('dm').value;        // # research stakeholders
 
-    document.getElementById('studies-out').textContent = s;
-    document.getElementById('cost-out').textContent = fmt(c);
-    document.getElementById('hrs-out').textContent = h + ' hrs';
-    document.getElementById('rate-out').textContent = '$' + r + ' / hr';
+    document.getElementById('agency-out').textContent  = fmt(agencySpend);
+    document.getElementById('insight-out').textContent = insightPros;
+    document.getElementById('dm-out').textContent      = dmCount;
 
-    const agency = s * c;
-    const gw = Math.round(agency * 0.16);
-    const saved = agency - gw;
-    const hrsRec = Math.round(s * h * 0.8);
-    const timeVal = Math.round(hrsRec * r);
-    const gwPct = Math.round((gw / agency) * 100);
+    // ---- Annual benefits (Nucleus model default rates) ----
+    const agencyBenefit = agencySpend * AGENCY_ELIM;                       // 97% of agency fees eliminated
+    const teamBenefit   = insightPros * INSIGHT_COST * TEAM_PRODUCTIVITY;     // 70% insight-team productivity gain
+    const dmBenefit     = dmCount * STAKEHOLDER_COST * DM_PRODUCTIVITY;       // 5% stakeholder productivity gain
+    const annualBenefit = agencyBenefit + teamBenefit + dmBenefit;
+    const hrsRecovered  = insightPros * WORK_HOURS * TEAM_PRODUCTIVITY;    // researcher hours freed per year
 
-    document.getElementById('saved').textContent = fmt(saved);
-    document.getElementById('agency-total').textContent = fmt(agency);
-    document.getElementById('gw-total').textContent = fmt(gw);
-    document.getElementById('hrs-rec').textContent = hrsRec.toLocaleString() + ' hrs';
-    document.getElementById('time-val').textContent = fmt(timeVal);
-    document.getElementById('a-label').textContent = fmt(agency);
-    document.getElementById('g-label').textContent = fmt(gw);
-    document.getElementById('a-bar').style.width = '100%';
-    document.getElementById('g-bar').style.width = gwPct + '%';
+    // ---- Costs (spreadsheet defaults) and three-year financials ----
+    const firstYearCost  = INITIAL_COST + ANNUAL_COST;
+    const threeYrBenefit = annualBenefit * 3;
+    const threeYrCost    = INITIAL_COST + ANNUAL_COST * 3;
+    const roi            = (threeYrBenefit - threeYrCost) / threeYrCost;   // 3-year return on investment
+    const paybackMonths  = firstYearCost / (annualBenefit / 12);
+    const netAnnual      = annualBenefit - ANNUAL_COST;
+
+    // ---- Headline (and the live proof strip up top) ----
+    document.getElementById('annual-benefit').textContent = fmt(annualBenefit);
+    document.getElementById('ps-benefit').textContent     = fmtShort(annualBenefit);
+    document.getElementById('roi-out').textContent     = Math.round(roi * 100) + '%';
+    document.getElementById('payback-out').textContent = (paybackMonths < 1 ? '<1' : paybackMonths.toFixed(1)) + ' mo';
+    document.getElementById('net-out').textContent     = fmtShort(netAnnual);
+
+    // ---- Benefit breakdown ----
+    document.getElementById('agency-benefit').textContent = fmt(agencyBenefit);
+    document.getElementById('team-benefit').textContent   = fmt(teamBenefit);
+    document.getElementById('dm-benefit').textContent     = fmt(dmBenefit);
+    document.getElementById('hrs-rec').textContent        = Math.round(hrsRecovered).toLocaleString() + ' hrs';
+    document.getElementById('ps-hrs').textContent         = Math.round(hrsRecovered).toLocaleString() + ' hrs';
+
+    // ---- Benefit vs. investment bars ----
+    document.getElementById('b3-label').textContent = fmt(threeYrBenefit);
+    document.getElementById('c3-label').textContent = fmt(threeYrCost);
+    document.getElementById('b-bar').style.width = '100%';
+    document.getElementById('c-bar').style.width = Math.min(100, (threeYrCost / threeYrBenefit) * 100) + '%';
   }
 
   function handleSubmit() {
@@ -774,7 +943,7 @@ footer p {
     document.querySelector('.cta-btn').style.opacity = '0.4';
   }
 
-  ['studies','cost','hrs','rate'].forEach(id => {
+  ['agency','insight','dm'].forEach(id => {
     document.getElementById(id).addEventListener('input', update);
   });
 
