@@ -316,7 +316,15 @@ nav {
   color: var(--black);
   letter-spacing: -0.01em;
   line-height: 1.1;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
+}
+.ig-q {
+  font-family: 'Aeonik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: 9px;
 }
 .ig-desc {
   font-family: 'Aeonik', sans-serif;
@@ -719,28 +727,31 @@ footer p {
 
         <div class="input-group">
           <p class="ig-title">Traditional Agency Spend</p>
-          <p class="ig-desc">What you pay agencies and panels each year. GetWhy replaces most of it at the same depth.</p>
+          <p class="ig-q">How much do you spend on agencies and panels a year?</p>
+          <p class="ig-desc">GetWhy replaces most of it at the same depth.</p>
           <div class="input-flex">
-            <input type="range" id="agency" min="50000" max="2000000" step="25000" value="200000" aria-label="Annual outside research and agency spend">
+            <input type="range" id="agency" min="50000" max="2000000" step="25000" value="200000" aria-label="How much do you spend on agencies and panels a year">
             <span class="rval" id="agency-out">$200,000</span>
           </div>
         </div>
 
         <div class="input-group">
           <p class="ig-title">Your Insight Team</p>
+          <p class="ig-q">How many people are on your insights team?</p>
           <p class="ig-desc">GetWhy handles study design, fieldwork, and synthesis. Each researcher gets most of that time back.</p>
           <div class="input-flex">
-            <input type="range" id="insight" min="1" max="25" step="1" value="3" aria-label="Researchers and insight professionals on your team">
-            <span class="rval" id="insight-out">3</span>
+            <input type="range" id="insight" min="1" max="25" step="1" value="3" aria-label="How many people are on your insights team">
+            <span class="rval" id="insight-out">3 people</span>
           </div>
         </div>
 
         <div class="input-group">
           <p class="ig-title">Your Decision-Makers</p>
-          <p class="ig-desc">Product, marketing, and innovation leads who wait on insight before they act. Faster answers mean faster decisions.</p>
+          <p class="ig-q">How many product, marketing, and innovation people rely on this research?</p>
+          <p class="ig-desc">Faster answers mean faster decisions.</p>
           <div class="input-flex">
-            <input type="range" id="dm" min="10" max="500" step="10" value="100" aria-label="Product, marketing, and innovation stakeholders who rely on research">
-            <span class="rval" id="dm-out">100</span>
+            <input type="range" id="dm" min="10" max="500" step="10" value="100" aria-label="How many product, marketing, and innovation people rely on this research">
+            <span class="rval" id="dm-out">100 people</span>
           </div>
         </div>
 
@@ -862,6 +873,7 @@ footer p {
     if (n >= 1e3) return '$' + Math.round(n / 1e3) + 'K';
     return '$' + Math.round(n);
   }
+  function people(n) { return n + (n === 1 ? ' person' : ' people'); }
 
   // ---- Nucleus GetWhy ROI business case (DRAFT V3): fixed assumptions ----
   const AGENCY_ELIM       = 0.97;   // % of outside agency fees eliminated
@@ -890,8 +902,8 @@ footer p {
     const dmCount     = +document.getElementById('dm').value;        // # research stakeholders
 
     document.getElementById('agency-out').textContent  = fmt(agencySpend);
-    document.getElementById('insight-out').textContent = insightPros;
-    document.getElementById('dm-out').textContent      = dmCount;
+    document.getElementById('insight-out').textContent = people(insightPros);
+    document.getElementById('dm-out').textContent      = people(dmCount);
 
     // ---- Annual benefits (Nucleus model default rates) ----
     const agencyBenefit = agencySpend * AGENCY_ELIM;                       // 97% of agency fees eliminated
